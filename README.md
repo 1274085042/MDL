@@ -1,4 +1,8 @@
 # MetaDeepLearningFrame  
+## 命名方式  
+* 自定义的函数和类型首字母大写   
+* 变量和参数使用匈牙利命名方式
+
 
 ## MetaDeepLearningFrame/facilities/var_type_dict.h  
 **VarTypeDict和map相比的优势：**  
