@@ -1,6 +1,8 @@
 #include "var_type_dict.h"
 #include <iostream>
 
+using namespace MNN;
+
 struct FParams : public VarTypeDict<struct A, struct B, struct Weight> 
 {};
 
