@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace MNN
+namespace MDL
 {
 	namespace NSVarTypeDict
 	{
