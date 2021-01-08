@@ -16,7 +16,7 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 与异类词典相比， policy模板的键与值都是编译时期常量    
 
 ### policy继承体系
-![][image2]  
+![][image2]
 
 [//]: # (reference)  
 [image1]: ./Explanation/VarTypeDict.png 
