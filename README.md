@@ -18,6 +18,12 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 ### policy继承体系
 ![][image2]
 
+## 数据类型
+### MetaDeepLearningFrame/data_type/scalar/scalar.h
+#### Scalar 标量类型  
+![][image3]  
+
 [//]: # (reference)  
 [image1]: ./Explanation/VarTypeDict.png 
 [image2]: ./Explanation/policy.png
+[image3]: ./Explanation/Scalar.png

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "traits.h"
 #include "policy_container.h"
+#include "../facilities/traits.h"
 #include <type_traits>
 
 namespace MDL
