@@ -23,7 +23,12 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 #### Scalar 标量类型  
 ![][image3]  
 
+### MetaDeepLearningFrame/data_type/matrices/cpu_matrix.h
+#### Matrix 矩阵类型
+![][image4]
+
 [//]: # (reference)  
 [image1]: ./Explanation/VarTypeDict.png 
 [image2]: ./Explanation/policy.png
 [image3]: ./Explanation/Scalar.png
+[image4]: ./Explanation/CPU_Matrix.png

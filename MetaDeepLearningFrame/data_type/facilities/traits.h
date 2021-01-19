@@ -49,6 +49,15 @@ namespace MDL
 	template<typename T>
 	constexpr bool IsScalar<T &&> = IsScalar<T>;
 
+	template<typename T>
+	constexpr bool IsMatrix = false;
+	template<typename T>
+	constexpr bool IsMatrix<const T> = IsMatrix<T>;
+	template<typename T>
+	constexpr bool IsMatrix<T&> = IsMatrix<T>;
+	template<typename T>
+	constexpr bool IsMatrix<T&&> = IsMatrix<T>;
+	
 	template <typename T>
 	using RemConstRef = std::remove_cv_t<std::remove_reference_t<T>>;
 }

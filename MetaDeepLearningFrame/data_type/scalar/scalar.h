@@ -9,7 +9,8 @@ namespace MDL
 	{
 	private:
 		//static_assert(std::is_same<RemConstRef<tElem>, tElem>::value);
-		static_assert(std::is_same<RemConstRef<tElem>, tElem>::value);
+		//static_assert(std::is_same<RemConstRef<tElem>, tElem>::value);
+		static_assert(std::is_same<RemConstRef<tElem>, tElem>::value, "tElem is not an available type");
 
 	public:
 		using ElementType = tElem;

@@ -3,6 +3,7 @@
 #include "tags.h"
 #include <deque>
 #include <mutex>
+#include <memory>
 #include <unordered_map>
 
 namespace MDL

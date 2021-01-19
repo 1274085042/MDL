@@ -14,13 +14,14 @@ namespace MDL
 	class ContinuousMemory
 	{
 	private:
-		static_assert(std::is_same<RemConstRef<tElem>, tElem>::value);
+		//static_assert(std::is_same<RemConstRef<tElem>, tElem>::value);
+		static_assert(std::is_same<RemConstRef<tElem>, tElem>::value, "tElem is not an available type");
 		using ElementType = tElem;
 		std::shared_ptr<ElementType> pMem_;
 		ElementType* pMemStart_;   //raw pointer,读取数据时，使用pMemStart_
 
 	public:
-		explicit ContinuousMemory(size_t sSize) :pMem_(Allocator<tDevice>::Allocate<ElementType>(sSize)), pMemStart_(sMem.get())
+		ContinuousMemory(size_t sSize) :pMem_(Allocator<tDevice>::template Allocate<ElementType>(sSize)), pMemStart_(pMem_.get())
 		{}
 
 		//构造子矩阵时使用
