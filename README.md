@@ -33,6 +33,10 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 ### MetaDeepLearningFrame/data_type/matrices/trival_matrix.h
 #### 平凡矩阵  
 ![][image6]
+### MetaDeepLearningFrame/data_type/matrices/zero_matrix.h
+#### 零矩阵  
+![][image7]
+  
 
 [//]: # (reference)  
 [image1]: ./Explanation/VarTypeDict.png 
@@ -41,3 +45,5 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 [image4]: ./Explanation/CPU_Matrix.png
 [image5]: ./Explanation/SubMatrix.png
 [image6]: ./Explanation/Trival_Matrix.png
+[image7]: ./Explanation/Zero_Matrix.png
+
