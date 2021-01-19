@@ -15,6 +15,7 @@ namespace MDL
 	private:
 		size_t rowNum_;
 		size_t colNum_;
+		//EvalBuffer<Matrix<ElementType, DeviceType>> evalBuf_;
 
 	public:
 		ZeroMatrix(size_t rowNum, size_t colNum) :rowNum_(rowNum), colNum_(colNum)
