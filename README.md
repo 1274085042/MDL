@@ -30,9 +30,14 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 **父子矩阵中数据成员之间的关系**
 ![][image5]
 
+### MetaDeepLearningFrame/data_type/matrices/trival_matrix.h
+#### 平凡矩阵  
+![][image6]
+
 [//]: # (reference)  
 [image1]: ./Explanation/VarTypeDict.png 
 [image2]: ./Explanation/policy.png
 [image3]: ./Explanation/Scalar.png
 [image4]: ./Explanation/CPU_Matrix.png
 [image5]: ./Explanation/SubMatrix.png
+[image6]: ./Explanation/Trival_Matrix.png
