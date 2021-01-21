@@ -58,6 +58,25 @@ namespace MDL
 	template<typename T>
 	constexpr bool IsMatrix<T&&> = IsMatrix<T>;
 	
+	template<typename T>
+	constexpr bool IsScalarBatch = false;
+	template<typename T>
+	constexpr bool IsScalarBatch<const T> = IsScalar<T>;
+	template<typename T>
+	constexpr bool IsScalarBatch<T&> = IsScalar<T>;
+	template<typename T>
+	constexpr bool IsScalarBatch<T&&> = IsScalar<T>;
+
+	template<typename T>
+	constexpr bool IsMatrixBatch = false;
+	template<typename T>
+	constexpr bool IsMatrixBatch<const T> = IsMatrixBatch<T>;
+	template<typename T>
+	constexpr bool IsMatrixBatch<T&> = IsMatrixBatch<T>;
+	template<typename T>
+	constexpr bool IsMatrixBatch<T&&> = IsMatrixBatch<T>;
+
+
 	template <typename T>
 	using RemConstRef = std::remove_cv_t<std::remove_reference_t<T>>;
 }

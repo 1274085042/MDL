@@ -39,8 +39,17 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 
 ### MetaDeepLearningFrame/data_type/matrices/one_hot_vector.h    
 #### 独热向量  
-![][image8]
+![][image8]    
 
+注意：引入新的矩阵类需要做的事情  
+* 定义一个新的模板类，存储矩阵的行数和列数
+* 在模板类中引入相应的接口，包括表示计算单元和计算设备的接口、与求值相关的接口、以及返回行数和列数的接口  
+* 对IsMatrix进行特化，来刻画矩阵类型和矩阵类别之间的关系   
+
+
+### MetaDeepLearningFrame/data_type/batch/matrix_batch.h  
+#### 矩阵Batch
+![][image9]
 
 [//]: # (reference)  
 [image1]: ./Explanation/VarTypeDict.png 
@@ -51,5 +60,4 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 [image6]: ./Explanation/Trival_Matrix.png
 [image7]: ./Explanation/Zero_Matrix.png
 [image8]: ./Explanation/OneHot_Vector.png
-
-
+[image9]: ./Explanation/Matrix_Batch.png

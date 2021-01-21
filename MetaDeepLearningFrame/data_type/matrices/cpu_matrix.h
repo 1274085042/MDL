@@ -81,13 +81,14 @@ namespace MDL
 			assert((sRowE < rowNum_) && (sColE < colNum_));
 
 			auto pos = mem_.RawMemory() + sRowB * rowLen_ + sColB;
-			return Matrix(mem_.SharedPtr(), pos, sRowE - sRowB, sColE - sColB, rowLen_);
+			return Matrix(mem_.SharedPtr(), pos, sRowE - sRowB+1, sColE - sColB+1, rowLen_);
 		}
 
         auto EvalRegister() const
         {}
 
 		friend struct LowerAccessImpl<Matrix<tElem, DeviceTags::CPU>>;
+		friend class Batch<tElem, DeviceTags::CPU, CategoryTags::Matrix>;
 	};
 
 	template <typename tElem>
