@@ -16,7 +16,6 @@
 ### MetaDeepLearningFrame/policies/policy_selector.h  
 VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的值  
 与异类词典相比， policy模板的键与值都是编译时期常量    
-
 #### 1.2 policy继承体系
 ![][image2]
 
@@ -48,7 +47,6 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 * 在模板类中引入相应的接口，包括表示计算单元和计算设备的接口、与求值相关的接口、以及返回行数和列数的接口  
 * 对IsMatrix进行特化，来刻画矩阵类型和矩阵类别之间的关系   
 
-
 ### MetaDeepLearningFrame/data_type/batch/matrix_batch.h  
 #### 2.6 矩阵Batch
 ![][image9]  
@@ -56,6 +54,16 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 ### MetaDeepLearningFrame/data_type/batch/cus_vector.h 
 #### 2.8 矩阵（Matrix）vector和标量（Scalar）vector  
 ![][image10]
+
+### MetaDeepLearningFrame/data_type/batch/duplicate.h  
+#### 2.9 Duplicate Batct中的每个矩阵或标量都是相同的
+![][image11]
+
+### 总结
+* 通过[标签体系](https://github.com/1274085042/MDL/blob/main/MetaDeepLearningFrame/data_type/facilities/tags.h)，为每个类型引入一个类别标签（[`DataCategory`](https://github.com/1274085042/MDL/blob/main/MetaDeepLearningFrame/data_type/facilities/traits.h#L111)可以根据类型返回类别），STL也有标签的概念，为不同的迭代器赋予不同的标签（如双向迭代器、随机访问迭代器等） 
+* 使用模板参数而非函数参数来传递标签信息的好处是不需要提供标签的定义  
+* MDL中的矩阵是浅拷贝的 
+  
 
 [//]: # (reference)  
 [image1]: ./Explanation/VarTypeDict.png 
@@ -68,3 +76,4 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 [image8]: ./Explanation/OneHot_Vector.png
 [image9]: ./Explanation/Matrix_Batch.png
 [image10]: ./Explanation/Cus_Vector.png
+[image11]: ./Explanation/Duplicate.png
