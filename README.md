@@ -60,7 +60,7 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 ![][image10]
 
 ### MetaDeepLearningFrame/data_type/batch/duplicate.h  
-#### 2.9 Duplicate Batct中的每个矩阵或标量都是相同的
+#### 2.9 Duplicate Batch中的每个矩阵或标量都是相同的
 ![][image11]
 
 ### 总结
