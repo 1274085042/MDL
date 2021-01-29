@@ -47,8 +47,12 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 * 在模板类中引入相应的接口，包括表示计算单元和计算设备的接口、与求值相关的接口、以及返回行数和列数的接口  
 * 对IsMatrix进行特化，来刻画矩阵类型和矩阵类别之间的关系   
 
+### MetaDeepLearningFrame/data_type/batch/scalar_batch.h  
+#### 2.8 标量Batch  
+![][image12]
+
 ### MetaDeepLearningFrame/data_type/batch/matrix_batch.h  
-#### 2.6 矩阵Batch
+#### 2.7 矩阵Batch
 ![][image9]  
 
 ### MetaDeepLearningFrame/data_type/batch/cus_vector.h 
@@ -76,4 +80,5 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 [image8]: ./Explanation/OneHot_Vector.png
 [image9]: ./Explanation/Matrix_Batch.png
 [image10]: ./Explanation/Cus_Vector.png
-[image11]: ./Explanation/Duplicate.png
+[image11]: ./Explanation/Duplicate.png  
+[image12]: ./Explanation/Scalar_Batch.png
