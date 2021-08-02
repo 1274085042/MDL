@@ -5,11 +5,19 @@
 
 ## 1 异类词典和policy
 ### MetaDeepLearningFrame/facilities/var_type_dict.h  
-异类词典VarTypeDict：键是编译时期常量，只是运行时期对象  
+异类词典VarTypeDict：键是编译时期常量，值是运行时期对象  
 **VarTypeDict和map相比的优缺点：**  
-优点，map需要通过键的比较，来设置插入位置，这个过程是在运行期完成的，VarTypeDict中的[`Set()`](https://github.com/1274085042/MDL/blob/main/MetaDeepLearningFrame/facilities/var_type_dict.h#L96)和[`Get()`](https://github.com/1274085042/MDL/blob/main/MetaDeepLearningFrame/facilities/var_type_dict.h#L118)函数
+优点：
+- map需要通过键的比较，来设置插入位置，这个过程是在运行期完成的，VarTypeDict中的[`Set()`](https://github.com/1274085042/MDL/blob/main/MetaDeepLearningFrame/facilities/var_type_dict.h#L96)和[`Get()`](https://github.com/1274085042/MDL/blob/main/MetaDeepLearningFrame/facilities/var_type_dict.h#L118)函数
 也有这种查找工作，相应的代码为 ```constexpr static size_t pos = Key2Pos<tKey_, tKey...>;``` 这是在编译时期完成的，并不占用运行期的时间。  
-缺点，异类词典的元素个数是固定的，不能在运行期像map一样添加和删除元素    
+- 存储的值类型可以是不同的   
+
+缺点：  
+异类词典的元素个数是固定的，不能在运行期像map一样添加和删除元素      
+
+使用map和异类词典共同的好处：  
+减少了函数调用时的参数误用，如果函数使用异类词典或map作为参数，就相当于使用了具名参数，因为在函数内部需要通过键来获取相应的值     
+
 #### 1.1 异类词典结构
 ![][image1]  
 
@@ -68,6 +76,17 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 * 使用模板参数而非函数参数来传递标签信息的好处是不需要提供标签的定义  
 * MDL中的矩阵是浅拷贝的 
   
+## 3 运算与表达式模板
+MDL中运算的设计体现了两个原则
+- 复用性，将不同运算中相似的逻辑提取出来  
+- 优化，使用表达式模板（运算模板）  
+
+MDL中的运算操作本质上是构造表达式模板实例，真正的求值计算是延后的  
+
+![][image13]  
+OperCateCal用来得到计算结果的类别
+OperOrganzier类提供了运算结果的尺寸接口
+
 
 [//]: # (reference)  
 [image1]: ./Explanation/VarTypeDict.png 
@@ -82,3 +101,4 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 [image10]: ./Explanation/Cus_Vector.png
 [image11]: ./Explanation/Duplicate.png  
 [image12]: ./Explanation/Scalar_Batch.png
+[image13]: ./Explanation/Operator.png
