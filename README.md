@@ -4,7 +4,7 @@
 * 变量和参数使用匈牙利命名方式
 
 ## 1 异类词典和policy
-### MetaDeepLearningFrame/facilities/var_type_dict.h  
+### 1.1 MetaDeepLearningFrame/facilities/var_type_dict.h  
 异类词典VarTypeDict：键是编译时期常量，值是运行时期对象  
 **VarTypeDict和map相比的优缺点：**  
 优点：
@@ -18,36 +18,39 @@
 使用map和异类词典共同的好处：  
 减少了函数调用时的参数误用，如果函数使用异类词典或map作为参数，就相当于使用了具名参数，因为在函数内部需要通过键来获取相应的值     
 
-#### 1.1 异类词典结构
+#### 异类词典结构
 ![][image1]  
 
-### MetaDeepLearningFrame/policies/policy_selector.h  
+### 1.2 MetaDeepLearningFrame/policies/policy_selector.h    
+policy：带有键值对，作用于模板并改变模板行为的类  
+
 VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的值  
 与异类词典相比， policy模板的键与值都是编译时期常量    
-#### 1.2 policy继承体系
+  
+#### policy继承体系
 ![][image2]
 
 ## 2 数据类型
-### MetaDeepLearningFrame/data_type/scalar/scalar.h
-#### 2.1 Scalar 标量类型  
+### 2.1 MetaDeepLearningFrame/data_type/scalar/scalar.h
+#### Scalar 标量类型  
 ![][image3]  
 
-### MetaDeepLearningFrame/data_type/matrices/cpu_matrix.h
-#### 2.2 Matrix 矩阵类型
+### 2.2 MetaDeepLearningFrame/data_type/matrices/cpu_matrix.h
+#### Matrix 矩阵类型
 ![][image4]  
 
 **父子矩阵中数据成员之间的关系**
 ![][image5]
 
-### MetaDeepLearningFrame/data_type/matrices/trival_matrix.h
-#### 2.3 平凡矩阵  
+### 2.3 MetaDeepLearningFrame/data_type/matrices/trival_matrix.h
+#### 平凡矩阵  
 ![][image6]
-### MetaDeepLearningFrame/data_type/matrices/zero_matrix.h
-#### 2.4 零矩阵  
+### 2.4 MetaDeepLearningFrame/data_type/matrices/zero_matrix.h
+#### 零矩阵  
 ![][image7]  
 
-### MetaDeepLearningFrame/data_type/matrices/one_hot_vector.h    
-#### 2.5 独热向量  
+### 2.5 MetaDeepLearningFrame/data_type/matrices/one_hot_vector.h    
+#### 独热向量  
 ![][image8]    
 
 注意：引入新的矩阵类需要做的事情  
@@ -55,20 +58,20 @@ VarTypeDict和policy本质上都是容器，都是通过键来索引容器中的
 * 在模板类中引入相应的接口，包括表示计算单元和计算设备的接口、与求值相关的接口、以及返回行数和列数的接口  
 * 对IsMatrix进行特化，来刻画矩阵类型和矩阵类别之间的关系   
 
-### MetaDeepLearningFrame/data_type/batch/scalar_batch.h  
-#### 2.8 标量Batch  
+### 2.6 MetaDeepLearningFrame/data_type/batch/scalar_batch.h  
+#### 标量Batch  
 ![][image12]
 
-### MetaDeepLearningFrame/data_type/batch/matrix_batch.h  
-#### 2.7 矩阵Batch
+### 2.7 MetaDeepLearningFrame/data_type/batch/matrix_batch.h  
+#### 矩阵Batch
 ![][image9]  
 
-### MetaDeepLearningFrame/data_type/batch/cus_vector.h 
-#### 2.8 矩阵（Matrix）vector和标量（Scalar）vector  
+### 2.8 MetaDeepLearningFrame/data_type/batch/cus_vector.h 
+#### 矩阵（Matrix）vector和标量（Scalar）vector  
 ![][image10]
 
-### MetaDeepLearningFrame/data_type/batch/duplicate.h  
-#### 2.9 Duplicate Batch中的每个矩阵或标量都是相同的
+### 2.9 MetaDeepLearningFrame/data_type/batch/duplicate.h  
+#### Duplicate Batch中的每个矩阵或标量都是相同的
 ![][image11]
 
 ### 总结

@@ -1,5 +1,7 @@
 Test/facilities/*.exe
 Test/policies/*.exe
 Test/data_type/*.exe
+Test/Operators/*.exe
+
 .VSCodeCounter
 .vscode

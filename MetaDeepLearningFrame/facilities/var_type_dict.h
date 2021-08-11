@@ -95,7 +95,7 @@ namespace MDL
 			}
 
 			template <typename tKey_, typename tType_>
-			auto  Set(tType_&& val) &&		//Set()函数后的&&，表示该函数只能被右值使用
+			auto Set(tType_&& val) &&		//Set()函数后的&&，表示该函数只能被右值使用
 			{								//根据传入的实参val将自动推导出tType_
 				using namespace NSVarTypeDict;
 				constexpr static size_t pos = Key2Pos<tKey_, tKey...>;

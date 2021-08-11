@@ -6,6 +6,12 @@
 
 namespace MDL
 {
+	/*
+	* 主类别：
+	* Scalar<tElem, tDevice>
+	* Matrix<tElem, tDevice>
+	* Batch<tElem, tDevice, tCategory>
+	*/
 	template<typename tElem, typename tDevice>
 	class Scalar;
 

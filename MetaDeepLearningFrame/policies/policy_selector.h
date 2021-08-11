@@ -77,6 +77,16 @@ namespace MDL
 		template <typename tMajorClass, typename ...tPolicies>
 		struct Selector_<tMajorClass, PolicyContainer<tPolicies...>>
 		{
+			/*
+			* Selector_有三步
+			* 1 基于MajorClass的policy类过滤
+			*	MajorFilter_：对PolicyContainer数组进行过滤，生成新的PolicyContainer数组，
+			*	确保数组中所有元素的MajorClass为tMajorClass
+			* 2 同组policy的MinorClass检测
+			*   因为同一模板参数中的policy的MinorClass不能相同，所以使用MinorCheck_检测PoclicyContainer数组中
+				任意两个元素的MinorClass是否相同
+			* 3 构造最终的返回类型
+			*/
 			using PC = typename MajorFilter_<tMajorClass, PolicyContainer<>, tPolicies...>::type;
 			static_assert(MinorCheck_<PC>::value, "Minor class set conflict!");   //static_assert(p,"")编译期静态断言,当第一个参数是false时，提供后面的文本
 
