@@ -58,6 +58,11 @@ namespace MDL
 		size_t ColNum() const
 		{
 			return colNum_;
+		}	
+
+		bool AvailabalForWrite()
+		{
+			return mem_.UseCount()==1;
 		}
 
 		//矩阵元素级读操作，返回矩阵元素的副本而不是指针或者引用
@@ -96,23 +101,24 @@ namespace MDL
 	{
 	private:
 		Matrix<tElem, DeviceTags::CPU> m_;
+		
+	public:
+		LowerAccessImpl(Matrix<tElem, DeviceTags::CPU> m):m_(std::move(m))
+		{}
 
-	LowerAccessImpl(Matrix<tElem, DeviceTags::CPU> m):m_(std::move(m))
-	{}
+		auto MutableRawMemory()
+		{
+			return m_.mem_.RawMemory();
+		}
 
-	auto MutableRawMemory()
-	{
-		return m_.mem_.RawMemory();
-	}
+		const auto RawMemory() const
+		{
+			return m_.mem_.RawMemory();
+		}
 
-	const auto RawMemory() const
-	{
-		return m_.mem_.RawMemory();
-	}
-
-	size_t RowLen() const
-	{
-		return m_.rowLen_;
-	}
+		size_t RowLen() const
+		{
+			return m_.rowLen_;
+		}
 	};
 }

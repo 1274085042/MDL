@@ -2,6 +2,7 @@ Test/facilities/*.exe
 Test/policies/*.exe
 Test/data_type/*.exe
 Test/Operators/*.exe
+Test/model_rel/param_initializer/*.exe
 
 .VSCodeCounter
 .vscode

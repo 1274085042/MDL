@@ -9,6 +9,11 @@ namespace MDL
 	static constexpr bool AddValue = false;
 	template<typename T>
 	static constexpr bool AddValue<true, T> = T::value;
+
+	template<bool b, typename T>
+	static constexpr bool OrValue = true;
+	template<typename T>
+	static constexpr bool OrValue<false, T> = T::value;
 	
 	//判断容器是否为空
 	template <typename T>
