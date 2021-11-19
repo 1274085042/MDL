@@ -1036,7 +1036,7 @@ namespace MDL
         
     }
 
-    template<<typename tAimTag, typename tOutConnectCont, typename tLayerInput, typename tOutput>
+    template<typename tAimTag, typename tOutConnectCont, typename tLayerInput, typename tOutput>
     auto FillOutput(const tLayerInput &input, tOutput &&output)
     {
           if constexpr(0 == ArraySize<tOutConnectCont>)
