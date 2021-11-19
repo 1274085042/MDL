@@ -13,7 +13,7 @@ namespace MDL
         static constexpr bool IsUpdate = false; //表示是否对某个层的参数进行更新
         
         struct IsFeedbackOutputValueCate;
-        static constexpr bool IsFeedbackOutput = false; //是否计算输出梯度
+        static constexpr bool IsFeedbackOutput = false; //是否输出梯度
     };
     ValuePolicyObj(PUpdate, FeedbackPolicy, IsUpdate, true);
     ValuePolicyObj(PNoUpdate, FeedbackPolicy, IsUpdate, false);

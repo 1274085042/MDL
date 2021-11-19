@@ -25,8 +25,8 @@ namespace MDL
         using OutputType = LayerIO;
 
     private:
-        using ElementType = PolicySelect<OperandPolicy, CurPolicyContainer>::Element;
-        using DeviceType = PolicySelect<OperandPolicy, CurPolicyContainer>::Device;
+        using ElementType = typename PolicySelect<OperandPolicy, CurPolicyContainer>::Element;
+        using DeviceType = typename PolicySelect<OperandPolicy, CurPolicyContainer>::Device;
 
         const std::string name_;
         size_t rowNum_;
@@ -34,6 +34,7 @@ namespace MDL
         
         Matrix<ElementType, DeviceType> bias_;
 
+        // DataType 的形式为 stack<DynamicData<ElementType, DeviceType, CategoryTags>>
         using DataType = LayerTraits::LayerInternalBuf<IsUpdate, PolicySelect<InputPolicy, CurPolicyContainer>::BatchMode, ElementType, DeviceType, CategoryTags::Matrix, CategoryTags::MatrixBatch>;
         DataType grad_;
     
@@ -171,7 +172,7 @@ namespace MDL
         {
             if constexpr (IsUpdate)
             {
-                LayerTraits::MatrixGradCollect(bias_, grad_ ,coll)
+                LayerTraits::MatrixGradCollect(bias_, grad_ ,coll);
             }
         }
         
@@ -179,7 +180,7 @@ namespace MDL
         {
             if constexpr(IsUpdate)
             {
-                if(!grad_.empty())
+                if(!(grad_.empty()))
                 {
                     throw std::runtime_error("NeutralInvariant fail!");
                 }

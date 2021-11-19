@@ -1,6 +1,7 @@
 #pragma once
 #include "../../data_type/dynamic.h"
 #include "../../facilities/null_param.h"
+#include <list>
 #include <stack>
 #include <type_traits>
 
@@ -19,7 +20,7 @@ namespace MDL
         template<bool trigger, bool batchMode, typename ElementType, typename DeviceType, typename CateTypeSingle, typename CateTypeBatch>
         struct LayerInternalBuf_
         {
-            using type = std::conditional_t<batchMode, LayerInternalBufType_<ElementType, DeviceType, CateTypeBatch>, LayerInternalBufType_<ElementType, DeviceType, CateTypeSingle>>::type;
+            using type = typename std::conditional_t<batchMode, LayerInternalBufType_<ElementType, DeviceType, CateTypeBatch>, LayerInternalBufType_<ElementType, DeviceType, CateTypeSingle>>::type;
         };
         template <bool batchMode, typename ElementType, typename DeviceType, typename CateTypeSingle, typename CateTypeBatch>
         struct LayerInternalBuf_<false, batchMode, ElementType, DeviceType, CateTypeSingle, CateTypeBatch>
@@ -37,8 +38,8 @@ namespace MDL
             {
                 auto g = grad.top();
                 grad.pop();
-                //TODO:Collect()
-                coll.Collect(weight, g);
+                // TODO：GradCollector::Collect()
+                // coll.Collect(weight, g);
             }
         }
     }

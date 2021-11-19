@@ -1,6 +1,6 @@
 #pragma once
 
-#include "policies.h"
+#include "./policies.h"
 #include "../../../facilities/traits.h"
 #include "../../../policies/policy_selector.h"
 #include "../../../facilities/var_type_dict.h"
@@ -12,64 +12,64 @@
 
 namespace MDL
 {
-    template<typename TRes, typename ...TPolicies>
+    template<typename tRes, typename ...tPolicies>
     struct FillerTagFromPolicies_
     {
-        using type = TRes;
+        using type = tRes;
     };
-    template<typename ...TRes, typename TCur, typename ...TRem>
-    struct FillerTagFromPolicies_<std::tuple<TRes...>, PInitializerIs<TCur>, TRem...>
+    template<typename ...tRes, typename tCur, typename ...tRem>
+    struct FillerTagFromPolicies_<std::tuple<tRes...>, PInitializerIs<tCur>, tRem...>
     {
-        using type = typename FillerTagFromPolicies_<std::tuple<TRes..., TCur>, TRem...>::type;
+        using type = typename FillerTagFromPolicies_<std::tuple<tRes..., tCur>, tRem...>::type;
     };
-    template<typename ...TRes, typename TCur, typename ...TRem>
-    struct FillerTagFromPolicies_<std::tuple<TRes...>, PWeightInitializerIs<TCur>, TRem...>
+    template<typename ...tRes, typename tCur, typename ...tRem>
+    struct FillerTagFromPolicies_<std::tuple<tRes...>, PWeightInitializerIs<tCur>, tRem...>
     {
-        using type = typename FillerTagFromPolicies_<std::tuple<TRes..., TCur>, TRem...>::type;
+        using type = typename FillerTagFromPolicies_<std::tuple<tRes..., tCur>, tRem...>::type;
     };
-    template<typename ...TRes, typename TCur, typename ...TRem>
-    struct FillerTagFromPolicies_<std::tuple<TRes...>, PBiasInitializerIs<TCur>, TRem...>
+    template<typename ...tRes, typename tCur, typename ...tRem>
+    struct FillerTagFromPolicies_<std::tuple<tRes...>, PBiasInitializerIs<tCur>, tRem...>
     {
-        using type = typename FillerTagFromPolicies_<std::tuple<TRes..., TCur>, TRem...>::type;
+        using type = typename FillerTagFromPolicies_<std::tuple<tRes..., tCur>, tRem...>::type;
     };
-    template<typename ...TRes, typename TLayer, typename ...TSub, typename ...TRem>
-    struct FillerTagFromPolicies_<std::tuple<TRes...>, SubPolicyContainer<TLayer, TSub...>, TRem...>
+    template<typename ...tRes, typename tLayer, typename ...tSub, typename ...tRem>
+    struct FillerTagFromPolicies_<std::tuple<tRes...>, SubPolicyContainer<tLayer, tSub...>, tRem...>
     {
-        //using step1 = typename FillerTagFromPolicies_<std::tuple<TRes...>, TSub...>::type;
-        //using type = typename FillerTagFromPolicies_<std::tuple<TRes..., TCur>, TRem...>::type;
+        //using step1 = typename FillerTagFromPolicies_<std::tuple<tRes...>, tSub...>::type;
+        //using type = typename FillerTagFromPolicies_<step1, tRem...>::type;
 
-        using type = typename FillerTagFromPolicies_<std::tuple<TRes...>, TSub..., TRem...>::type;
+        using type = typename FillerTagFromPolicies_<std::tuple<tRes...>, tSub..., tRem...>::type;
     };
 
-    template <typename TCheck, typename ...TCheckes>
+    template <typename tCheck, typename ...tCheckes>
     struct AlreadyExist_
     {
         static constexpr bool value = false;
     };
-    template <typename TCheck, typename TCur, typename ...TRem>
-    struct AlreadyExist_<TCheck, TCur, TRem...>
+    template <typename tCheck, typename tCur, typename ...tRem>
+    struct AlreadyExist_<tCheck, tCur, tRem...>
     {
-        static constexpr bool value = OrValue<std::is_same<TCheck, TCur>::value, AlreadyExist_<TCheck, TRem...>>;
+        static constexpr bool value = OrValue<std::is_same<tCheck, tCur>::value, AlreadyExist_<tCheck, tRem...>>;
     };
 
-    template<typename TRes, typename TPolicyTuple>
+    template<typename tRes, typename tPolicyTuple>
     struct TagDedupe_
     {
-        using type = TRes;
+        using type = tRes;
     };
-    template<typename ...TRes, typename TCur, typename ...TRem>
-    struct TagDedupe_<VarTypeDict<TRes...>, std::tuple<TCur, TRem...>>
+    template<typename ...tRes, typename tCur, typename ...tRem>
+    struct TagDedupe_<VarTypeDict<tRes...>, std::tuple<tCur, tRem...>>
     {
 
-        using type = typename std::conditional_t<AlreadyExist_<TCur, TRem...>::value, 
-                                        TagDedupe_<VarTypeDict<TRes...>, std::tuple<TRem...>>,
-                                        TagDedupe_<VarTypeDict<TRes..., TCur>, std::tuple<TRem...>>>::type;
+        using type = typename std::conditional_t<AlreadyExist_<tCur, tRem...>::value, 
+                                        TagDedupe_<VarTypeDict<tRes...>, std::tuple<tRem...>>,
+                                        TagDedupe_<VarTypeDict<tRes..., tCur>, std::tuple<tRem...>>>::type;
     };
 
-    template<typename ...TPolicies>
+    template<typename ...tPolicies>
     struct FillerTags2NamedParams_
     {
-        using step1 = typename FillerTagFromPolicies_<std::tuple<>, TPolicies...>::type;
+        using step1 = typename FillerTagFromPolicies_<std::tuple<>, tPolicies...>::type;
         using type = typename TagDedupe_<VarTypeDict<>, step1>::type;
     };
 
@@ -78,8 +78,8 @@ namespace MDL
     * 第一步 FillerTagFromPolicies_得到tuple<tags...>
     * 第二步 TagDedupe_对tuple<tags...>里面重复的tag进行过滤，过滤的tag放入VarTypeDict<>
     */
-    template<typename ...TPolicies>
-    using FillerTags2NamedParams = typename FillerTags2NamedParams_<TPolicies ...>::type;
+    template<typename ...tPolicies>
+    using FillerTags2NamedParams = typename FillerTags2NamedParams_<tPolicies...>::type;
 
 
     template <typename tPolicyCont, typename tGroup>

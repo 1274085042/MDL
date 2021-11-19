@@ -1,6 +1,6 @@
-#include "traits.h"
-#include "policy_selector.h"
-#include "policy_container.h"
+//#include "traits.h"
+#include "../../MetaDeepLearningFrame/policies/policy_selector.h"
+#include "../../MetaDeepLearningFrame/policies/policy_container.h"
 #include <cmath>
 #include <assert.h>
 #include <iostream>
@@ -36,14 +36,14 @@ struct AccPolicy
 	using Value = float;
 };
 
-#include "policy_macro_begin.h"
+#include "../../MetaDeepLearningFrame/policies/policy_macro_begin.h"
 TypePolicyObj(pAddAccu, AccPolicy, Accu, Add);
 TypePolicyObj(pMulAccu, AccPolicy, Accu, Mul);
 ValuePolicyObj(pAve, AccPolicy, IsAve, true);
 ValuePolicyObj(pNoAve, AccPolicy, IsAve, false);
 TypePolicyTemplate(pValueTypeIs, AccPolicy, Value);
 ValuePolicyTemplate(pAvePolicyIs, AccPolicy, IsAve);
-#include "policy_macro_end.h"
+#include "../../MetaDeepLearningFrame/policies/policy_macro_end.h"
 
 template <typename ...tPolicies>
 struct Accumulator

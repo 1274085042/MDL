@@ -19,16 +19,16 @@ namespace MDL
 		struct MajorFilter_<tMajorClass, PolicyContainer<tFilteredPolicies...>, tCurPolicy, T...>
 		{
 			template<typename tCurMajorClass, typename tDummy=void>		
-			struct impl_				//不属于tMajorClass的policy丢掉
+			struct Impl_				//不属于tMajorClass的policy丢掉
 			{
 				using type =typename MajorFilter_<tMajorClass, PolicyContainer<tFilteredPolicies...>, T...>::type;
 			};
 			template<typename tDummy>		   //因为template的模板参数不能为空（template< >）,因此引入tDummy，同时在原始模板中将tDummy设置一个默认值void
-			struct impl_<tMajorClass, tDummy>  //属于tMajorClass的policy放入容器
+			struct Impl_<tMajorClass, tDummy>  //属于tMajorClass的policy放入容器
 			{
 				using type =typename MajorFilter_<tMajorClass, PolicyContainer<tFilteredPolicies..., tCurPolicy>, T...>::type;
 			};
-			using type = typename impl_<typename tCurPolicy::MajorClass>::type;
+			using type = typename Impl_<typename tCurPolicy::MajorClass>::type;
 		};
 
 		/*
@@ -47,7 +47,7 @@ namespace MDL
 		{
 			using tCurMinorClass =typename tCurPolicy::MinorClass;
 			static constexpr bool cur_check = !(std::is_same<tMinorClass, tCurMinorClass>::value);
-			static constexpr bool value = AddValue<cur_check, MinorDep_<tMinorClass, T...>>;
+			static constexpr bool value = AndValue<cur_check, MinorDep_<tMinorClass, T...>>;
 		};
 
 		template<typename tPolicyContainer>
@@ -59,7 +59,7 @@ namespace MDL
 		struct MinorCheck_<PolicyContainer<tCurPolicy, T...>>
 		{
 			static constexpr bool cur_value=MinorDep_<typename tCurPolicy::MinorClass, T...>::value;
-			static constexpr bool value = AddValue<cur_value, MinorCheck_<PolicyContainer<T...>>>;
+			static constexpr bool value = AndValue<cur_value, MinorCheck_<PolicyContainer<T...>>>;
 		};
 
 		template<typename tPolicyCont>

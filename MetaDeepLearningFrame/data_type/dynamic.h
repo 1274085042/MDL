@@ -90,7 +90,7 @@ namespace MDL
             return baseData_;
         }
 
-        bool operator==(const DynamicCategory & dc)
+        bool operator==(const DynamicCategoryType & dc)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace MDL
             }         
         }
 
-        bool operator!=(const DynamicCategory & dc)
+        bool operator!=(const DynamicCategoryType & dc)
         {
             return !(operator==(dc));
         }
@@ -155,7 +155,7 @@ namespace MDL
             }
             if((!sp_) || (!dd.sp_))
             {
-                return false
+                return false;
             }
 
             const DynamicCategoryType &dt1 = *(sp_);
@@ -184,7 +184,7 @@ namespace MDL
     };
     
     template <typename tElem, typename tDevice>
-    class DynamicData<typename tElem, typename tDevice, CategoryTags::MatrixBatch>
+    class DynamicData<tElem, tDevice, CategoryTags::MatrixBatch>
     {
     private:
         using DynamicCategoryType = DynamicCategory<tElem, tDevice, CategoryTags::MatrixBatch>;
@@ -228,7 +228,7 @@ namespace MDL
             }
             if((!sp_) || (!dd.sp_))
             {
-                return false
+                return false;
             }
 
             const DynamicCategoryType &dt1 = *(sp_.get());
@@ -256,21 +256,6 @@ namespace MDL
     };
 
     template<typename T>
-    auto MakeDynamicData(T&&t)
-    {
-        if constexpr(IsDynamic<T>)
-        {
-            return forward<T>(t);
-        }
-        else
-        {
-            using RawType = RemConstRef<T>;
-            std::shared_ptr<DynamicCategory> sp = std::make_shared<DynamicWrapper<RawType>>(forward<T>(t));
-            return DynamicData<typename RawType::ElementType, typename RawType::DeviceType, typename DataCategory<RawType>> (sp);
-        }
-    }
-
-    template<typename T>
     constexpr bool IsDynamic = false;
 
     template<typename tElem, typename tDevice, typename tCate>
@@ -293,4 +278,20 @@ namespace MDL
     
     template<typename tElem, typename tDevice>
     constexpr bool IsMatrixBatch<DynamicData<tElem, tDevice, CategoryTags::MatrixBatch>> =true;
+
+    template<typename T>
+    auto MakeDynamicData(T&&t)
+    {
+        if constexpr(IsDynamic<T>)
+        {
+            return std::forward<T>(t);
+        }
+        else
+        {
+            using RawType = RemConstRef<T>;
+            auto sp = std::make_shared<DynamicWrapper<RawType>>(std::forward<T>(t));
+            return DynamicData<typename RawType::ElementType, typename RawType::DeviceType, DataCategory<RawType>> (std::move(sp));
+        }
+    }
+
 }

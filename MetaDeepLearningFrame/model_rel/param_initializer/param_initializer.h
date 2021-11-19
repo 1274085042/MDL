@@ -89,7 +89,7 @@ namespace MDL
 template <typename tElem, typename ...tPolicies>
 auto MakeInitializer()
 {
-    using npType = FillerTags2NamedParams<tPolicies>;
+    using npType = FillerTags2NamedParams<tPolicies...>;
     using FillDictType = RemConstRef<decltype(npType::Creat())>;
     return ParamInitializer<tElem, PolicyContainer<tPolicies...>, FillDictType>(npType::Creat());
 }

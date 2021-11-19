@@ -34,7 +34,7 @@ namespace MDL
     struct SameCate_<tCate, tCateCur, tCateRemain...>
     {
        static constexpr bool tmp = std::is_same<tCate, tCateCur>::value;
-       static constexpr bool value = AddValue<tmp, SameCate_<tCate, tCateRemain...>>;
+       static constexpr bool value = AndValue<tmp, SameCate_<tCate, tCateRemain...>>;
     };
     
     /*

@@ -30,7 +30,7 @@ namespace MDL
     template<typename tLayer, typename tInitializer, typename tBuffer, typename tInitPolicies = typename tInitializer::PolicyCont>
     void LayerInit(tLayer &layer, tInitializer &initialzier, tBuffer &loadBuffer, std::ostream *log = nullptr)
     {
-        if constexpr(decltype(InitTest<tLayer, tInitializer, tBuffer,tInitPolicies>(nullptr))::value)
+        if constexpr(decltype(InitTest<tLayer, tInitializer, tBuffer, tInitPolicies>(nullptr))::value)
         {
             layer.template Init<tInitializer, tBuffer, tInitPolicies>(initialzier, loadBuffer, log);
         }

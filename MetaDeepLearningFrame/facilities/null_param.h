@@ -2,8 +2,5 @@
 
 namespace MDL
 {
-    struct NullParameter
-    {
-
-    };
+    struct NullParameter;
 }

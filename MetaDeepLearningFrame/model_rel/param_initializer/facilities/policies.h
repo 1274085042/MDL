@@ -1,7 +1,7 @@
 #pragma once
 
-#include <random>
 #include "../../../policies/policy_macro_begin.h"
+#include <random>
 
 namespace MDL
 {
@@ -21,11 +21,10 @@ namespace MDL
         struct RandEngineTypeCate;
         using RandEngine = std::mt19937;
     };
-
     TypePolicyTemplate(PInitializerIs, InitPolicy, Overall);
     TypePolicyTemplate(PWeightInitializerIs, InitPolicy, Weight);
     TypePolicyTemplate(PBiasInitializerIs, InitPolicy, Bias);
-    TypePolicyTemplate(PRandEngineInitializerIs, InitPolicy, RandEngine);
+    TypePolicyTemplate(PRandomGeneratorIs, InitPolicy, RandEngine);
 
     struct VarScaleFillerPolicy
     {

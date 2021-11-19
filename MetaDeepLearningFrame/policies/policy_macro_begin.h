@@ -1,4 +1,3 @@
-#pragma once
 #include "../facilities/traits.h"
 /*
 * 采用虚继承是防止在多继承的情形中，新定义的类型和常量不具有支配地位
@@ -39,4 +38,4 @@ struct PolicyName:virtual public Ma \
 	public:\
 		using MinorClass=Ma::Mi##ValueCate; \
 		static constexpr type2 Mi=V; \
-};
+}
