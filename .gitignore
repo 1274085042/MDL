@@ -6,6 +6,7 @@ Test/Operators/*.exe
 Test/model_rel/param_initializer/*.exe
 Test/layers/*.exe
 Test/layers/*.ii
+Test/evaluate/*.exe
 
 .VSCodeCounter
 .vscode
