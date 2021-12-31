@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include <cassert>
+#include <iostream>
 #include <stdexcept>
 #include <typeindex>
 #include <unordered_set>
@@ -10,6 +11,7 @@
 
 #include "./eval_group.h"
 #include "./eval_pool.h"
+#include "../cpu/trivial_eval_pool.h"
 
 namespace MDL
 {
@@ -31,6 +33,7 @@ namespace MDL
     }
 
     //EvalCluster保存求值计算请求
+    //type_index用以区分不同的EvalGroup类型
     template <typename tDevice>
     using EvalCluster = std::unordered_map<std::type_index, std::shared_ptr<BaseEvalGroup<tDevice>>>;
 
@@ -76,6 +79,7 @@ namespace MDL
 
             if(outputs_.find(resPtr) != outputs_.end())
             {
+                std::cout<< "Duplicate register." << std::endl;
                 return;
             }
 
@@ -144,7 +148,9 @@ namespace MDL
             curLayer.template EvalRegister<tEvalGroup>(std::forward<tEvalUnit>(evalReq), outputPtr, paramPtr);
         }
 
-        //???
+        /*
+        * DoLayerEval()处理当前层的求值请求
+        */
         void DoLayerEval()
         {
             EvalLayer<tDevice> &curLayer = evalLayers_.back();
@@ -160,9 +166,9 @@ namespace MDL
             for (size_t i = 0; i < seqLen; ++i)    //遍历vector
             {
                 EvalCluster<tDevice> & ec = curLayer[i];
-                for(auto &e: ec)                   //遍历map
+                for(auto &e: ec)                   //遍历map，map里面存放了不同种类的计算
                 {
-                    //???while
+                    //处理同类所有计算
                     while(auto unit = e.second->GetEvalUnit())
                     {
                         evalPool_->Process(unit);
@@ -170,7 +176,7 @@ namespace MDL
                 }
 
                 evalPool_->Barrier();
-
+                //处理当前计算次序时，有没有引入新的计算请求
                 if(!evalLayers_.back().Empty())
                 {
                     DoLayerEval();
@@ -187,12 +193,20 @@ namespace MDL
             GlobalEvalPool() = ep;
         }
 
+        /*
+        * evalReq：实际的计算单元
+        * ouputPtr：指向计算结果的指针
+        * paramPtr：指向计算参数的指针
+        */
         template<typename tEvalGroup, typename tEvalUnit>
         static void Register(tEvalUnit &&evalReq, const void * ouputPtr, const std::vector<const void *> &paramPtr)
         {
             ThreadInst().template EvalRegister<tEvalGroup>(std::forward<tEvalUnit>(evalReq), ouputPtr, paramPtr);
         }
 
+        /*
+        * Eval()处理当前层（EvalLayer）的求值请求
+        */
         static void Eval()
         {
             EvalPlan& plan = ThreadInst();

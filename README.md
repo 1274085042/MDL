@@ -90,6 +90,27 @@ MDL中的运算操作本质上是构造表达式模板实例，真正的求值�
 OperCateCal用来得到计算结果的类别
 OperOrganzier类提供了运算结果的尺寸接口
 
+## 4 求值与优化  
+求值逻辑：MDL/MetaDeepLearningFrame/evaluate  
+不同的数据类型和运算都需要实现各自的求值逻辑  
+### 4.1 求值系统类图
+![][image14]
+### 4.2 求值核心逻辑EvalPlan中的数据成员
+![][image15]
+为什么设计[`EvalLayer`](https://github.com/1274085042/MDL/blob/main/MetaDeepLearningFrame/evaluate/facilities/eval_plan.h#L117)?  
+大部分求值请求是在调用EvalPlan::Eval()之前注册到EvalPlan中的，也有一些
+请求是在EvalPlan::Eval()执行过程中产生的，为了处理这些请求，设计EvalLayer。
+
+为什么设计[`Vector<EvalCluster>`](https://github.com/1274085042/MDL/blob/main/MetaDeepLearningFrame/evaluate/facilities/eval_plan.h#L45)?  
+为了刻画求值次序  
+
+为什么设计[`EvalCluster`](https://github.com/1274085042/MDL/blob/main/MetaDeepLearningFrame/evaluate/facilities/eval_plan.h#L38)?  
+
+**EvalGroup负责存放同类计算，这些同类计算可以使用第三方库的批量计算接口进行加速，以点乘为例，Intel的MathKernelLibrary（MKL）提供了gemm_batch接口，可以一次读入多个矩阵完成矩阵乘法。Nvidia的CUDA也提供了类似的功能。**  
+
+**EvalCluster的形式是map，这是为了方便不同种类的计算可以采用多线程的形式进行加速。**
+
+
 
 [//]: # (reference)  
 [image1]: ./Explanation/VarTypeDict.png 
@@ -105,3 +126,5 @@ OperOrganzier类提供了运算结果的尺寸接口
 [image11]: ./Explanation/Duplicate.png  
 [image12]: ./Explanation/Scalar_Batch.png
 [image13]: ./Explanation/Operator.png
+[image14]: ./Explanation/Evaluate.png
+[image15]: ./Explanation/EvalPlan.png
